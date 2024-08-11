@@ -2,6 +2,12 @@ import { Response, Request } from "express";
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import {
+  addCard,
+  updatedCard,
+  getCards,
+  deleteCard,
+} from "./controllers/flashCardController";
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 8080;
@@ -23,6 +29,12 @@ app.use(express.json());
 app.get("/api", (req: Request, res: Response) => {
   res.send("Healthy server");
 });
+
+app.get("/api/getCards", getCards);
+app.post("/api/addCard", addCard);
+app.patch("/api/updatedCard", updatedCard);
+app.delete("/api/:id", deleteCard);
+
 app.listen(port, () => {
   console.log("server listening at port:", port);
 });
